@@ -1,0 +1,225 @@
+build full implementation of: ```[
+  {
+    "source": "file",
+    "filename": "README.md",
+    "file_size": 3958,
+    "mime_type": "text/csv",
+    "created": "2025-05-08T21:28:49.482853",
+    "modified": "2025-05-08T21:28:49.482853",
+    "raw_content": "# Free AI Money Printer - Debunking Misleading Claims\n\nThis repository contains our research and implementation to debunk a series of misleading posts related to crypto trading and automation using various APIs. The investigation highlights incorrect API usage, data misinterpretations, and necessary adjustments made to achieve reliable results.\n\n## üöÄ The Narrative: AI + Pump = Free Money?\n\nA popular narrative circulating on Twitter suggests that by leveraging AI models like DeepSeek, ChatGPT, Grok, or LLaMA, combined with Pump.fun, anyone can identify and invest in early-stage tokens (\"gems\") before they experience massive price surges (100x+ growth). The logic is simple:\n\n- AI models analyze market trends, social sentiment, and blockchain data to find promising low-cap tokens.\n- Pump.fun or similar platforms facilitate easy trading and exposure to high-risk, high-reward opportunities.\n- Virality and community-driven narratives drive speculation and potential exponential returns.\n\nExample tweets reinforcing this narrative:\n\nüîó https://x.com/web3marmot/status/1884325392737251598\n\nüîó https://x.com/CryptoNobler/status/1885035133322817578\n\n## üí° Is It Really That Simple?\n\nWe provide a detailed breakdown of each step mentioned in the tweet, including corrections and recommendations. Enjoy the deep dive!\n\n## ‚ö†Ô∏è Disclaimer\n\nThis repository is not financial advice. This repository contains results from a personal experiment conducted by the FractalXBT team. All code is distributed as open-source for educational and research purposes only.\n\n## üìå Overview\n\nWe analyzed and debunked a series of misleading tweets that suggested using various APIs for token selection and security verification. Throughout the process, we encountered multiple inconsistencies, such as incorrect API URLs, improper data parsing, and flawed methodologies.\n\n## üîç Key Findings\n### **Step 1: Fake API URL in the Original Post**\n- The original post referenced an API URL associated with **pump.fun**, which is not officially recognized and may be fraudulent.\n- We replicated the process using the **PumpPortal.fun** API and confirmed that the original claim was incorrect.\n\n### **Step 2: Misleading Data Analysis**\n- The original analysis was based on data that the referenced API does not return.\n- We proposed valid filtering criteria for token selection, including:\n  - Minimum initial buy to avoid small purchases.\n  - Minimum SOL balance to ensure relevance.\n  - Ensuring a reasonable market cap for token viability.\n\n### **Step 3: Incorrect Twitter Analysis via TweetScout.io**\n- The API URL in the tweet was incorrect.\n- **TweetScout.io** does not support retrieving follower counts solely based on a token ticker.\n- Metadata inconsistencies were found in retrieved Twitter handles.\n- The API is not free; it required a $49 payment for 10,000 requests.\n\n### **Step 4: Token Security Check via RugCheck.xyz**\n- The API URL in the original tweet was incorrect.\n- The provided code relied on HTML parsing instead of using the RugCheck API.\n- The parsing logic was incompatible with the actual website structure.\n- The page is JavaScript-rendered, requiring Selenium to bypass anti-crawler measures.\n- **Solution:** We rewrote the logic using the **RugCheck API**, specifically the `/tokens/{mint}/report/summary` endpoint to obtain risk scores.\n\n## ‚öôÔ∏è How to Use\nTo replicate our findings and run the implementation:\n```bash\n# Clone the repository\ngit clone https://github.com/FractalXBT/free-ai-money-printer.git\ncd free-ai-money-printer\n\n# Install dependencies\npip install requests pandas python-dotenv colorama websockets\n\n# Run the main script\npython pump_fun_scraper.py\n```\n\n## üì¢ Contributions\nIf you‚Äôd like to contribute or report an issue, feel free to open a pull request or create an issue in the repository.\n\n## üìú License\nThis project is licensed under the MIT License.\n\n---\n**Developed by:** The FractalXBT Research Team\n",
+    "extracted_data": {
+      "headers": [
+        "# Free AI Money Printer - Debunking Misleading Claims"
+      ],
+      "rows": [
+        [],
+        [
+          "This repository contains our research and implementation to debunk a series of misleading posts related to crypto trading and automation using various APIs. The investigation highlights incorrect API usage",
+          " data misinterpretations",
+          " and necessary adjustments made to achieve reliable results."
+        ],
+        [],
+        [
+          "## üöÄ The Narrative: AI + Pump = Free Money?"
+        ],
+        [],
+        [
+          "A popular narrative circulating on Twitter suggests that by leveraging AI models like DeepSeek",
+          " ChatGPT",
+          " Grok",
+          " or LLaMA",
+          " combined with Pump.fun",
+          " anyone can identify and invest in early-stage tokens (\"gems\") before they experience massive price surges (100x+ growth). The logic is simple:"
+        ],
+        [],
+        [
+          "- AI models analyze market trends",
+          " social sentiment",
+          " and blockchain data to find promising low-cap tokens."
+        ],
+        [
+          "- Pump.fun or similar platforms facilitate easy trading and exposure to high-risk",
+          " high-reward opportunities."
+        ],
+        [
+          "- Virality and community-driven narratives drive speculation and potential exponential returns."
+        ],
+        [],
+        [
+          "Example tweets reinforcing this narrative:"
+        ],
+        [],
+        [
+          "üîó https://x.com/web3marmot/status/1884325392737251598"
+        ],
+        [],
+        [
+          "üîó https://x.com/CryptoNobler/status/1885035133322817578"
+        ],
+        [],
+        [
+          "## üí° Is It Really That Simple?"
+        ],
+        [],
+        [
+          "We provide a detailed breakdown of each step mentioned in the tweet",
+          " including corrections and recommendations. Enjoy the deep dive!"
+        ],
+        [],
+        [
+          "## ‚ö†Ô∏è Disclaimer"
+        ],
+        [],
+        [
+          "This repository is not financial advice. This repository contains results from a personal experiment conducted by the FractalXBT team. All code is distributed as open-source for educational and research purposes only."
+        ],
+        [],
+        [
+          "## üìå Overview"
+        ],
+        [],
+        [
+          "We analyzed and debunked a series of misleading tweets that suggested using various APIs for token selection and security verification. Throughout the process",
+          " we encountered multiple inconsistencies",
+          " such as incorrect API URLs",
+          " improper data parsing",
+          " and flawed methodologies."
+        ],
+        [],
+        [
+          "## üîç Key Findings"
+        ],
+        [
+          "### **Step 1: Fake API URL in the Original Post**"
+        ],
+        [
+          "- The original post referenced an API URL associated with **pump.fun**",
+          " which is not officially recognized and may be fraudulent."
+        ],
+        [
+          "- We replicated the process using the **PumpPortal.fun** API and confirmed that the original claim was incorrect."
+        ],
+        [],
+        [
+          "### **Step 2: Misleading Data Analysis**"
+        ],
+        [
+          "- The original analysis was based on data that the referenced API does not return."
+        ],
+        [
+          "- We proposed valid filtering criteria for token selection",
+          " including:"
+        ],
+        [
+          "  - Minimum initial buy to avoid small purchases."
+        ],
+        [
+          "  - Minimum SOL balance to ensure relevance."
+        ],
+        [
+          "  - Ensuring a reasonable market cap for token viability."
+        ],
+        [],
+        [
+          "### **Step 3: Incorrect Twitter Analysis via TweetScout.io**"
+        ],
+        [
+          "- The API URL in the tweet was incorrect."
+        ],
+        [
+          "- **TweetScout.io** does not support retrieving follower counts solely based on a token ticker."
+        ],
+        [
+          "- Metadata inconsistencies were found in retrieved Twitter handles."
+        ],
+        [
+          "- The API is not free; it required a $49 payment for 10",
+          "000 requests."
+        ],
+        [],
+        [
+          "### **Step 4: Token Security Check via RugCheck.xyz**"
+        ],
+        [
+          "- The API URL in the original tweet was incorrect."
+        ],
+        [
+          "- The provided code relied on HTML parsing instead of using the RugCheck API."
+        ],
+        [
+          "- The parsing logic was incompatible with the actual website structure."
+        ],
+        [
+          "- The page is JavaScript-rendered",
+          " requiring Selenium to bypass anti-crawler measures."
+        ],
+        [
+          "- **Solution:** We rewrote the logic using the **RugCheck API**",
+          " specifically the `/tokens/{mint}/report/summary` endpoint to obtain risk scores."
+        ],
+        [],
+        [
+          "## ‚öôÔ∏è How to Use"
+        ],
+        [
+          "To replicate our findings and run the implementation:"
+        ],
+        [
+          "```bash"
+        ],
+        [
+          "# Clone the repository"
+        ],
+        [
+          "git clone https://github.com/FractalXBT/free-ai-money-printer.git"
+        ],
+        [
+          "cd free-ai-money-printer"
+        ],
+        [],
+        [
+          "# Install dependencies"
+        ],
+        [
+          "pip install requests pandas python-dotenv colorama websockets"
+        ],
+        [],
+        [
+          "# Run the main script"
+        ],
+        [
+          "python pump_fun_scraper.py"
+        ],
+        [
+          "```"
+        ],
+        [],
+        [
+          "## üì¢ Contributions"
+        ],
+        [
+          "If you‚Äôd like to contribute or report an issue",
+          " feel free to open a pull request or create an issue in the repository."
+        ],
+        [],
+        [
+          "## üìú License"
+        ],
+        [
+          "This project is licensed under the MIT License."
+        ],
+        [],
+        [
+          "---"
+        ],
+        [
+          "**Developed by:** The FractalXBT Research Team"
+        ]
+      ]
+    },
+    "processing_notes": [
+      "Parsed as CSV.",
+      "Note: Content looked like CSV despite extension/mime."
+    ]
+  }
+]```
