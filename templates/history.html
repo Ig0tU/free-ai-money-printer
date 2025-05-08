@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis History - Crypto Analysis{% endblock %}
+
+{% block content %}
+<div class="py-6">
+    <!-- Page Header -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900">Analysis History</h1>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <!-- Analysis History Table -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg leading-6 font-medium text-gray-900">Historical Analyses</h2>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Complete record of all token analyses performed</p>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="window.print()" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-print mr-2"></i>
+                        Print
+                    </button>
+                    <button id="exportCSV" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-download mr-2"></i>
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+
+            {% if history.analyses %}
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden border-b border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date/Time
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Token
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Model Used
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Market Data
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for analysis in history.analyses|reverse %}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ analysis.timestamp|format_datetime }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center">
+                                                    <i class="fas fa-coins text-indigo-600 text-xl"></i>
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">
+                                                        {{ analysis.token_data.name }}
+                                                    </div>
+                                                    <div class="text-sm text-gray-500">
+                                                        {{ analysis.token_data.symbol }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                       {% if analysis.model_used == 'google' %}
+                                                           bg-green-100 text-green-800
+                                                       {% elif analysis.model_used == 'huggingface' %}
+                                                           bg-blue-100 text-blue-800
+                                                       {% else %}
+                                                           bg-gray-100 text-gray-800
+                                                       {% endif %}">
+                                                {{ analysis.model_used|upper }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <div>Price: ${{ analysis.token_data.price }}</div>
+                                            <div>Vol 24h: ${{ analysis.token_data.volume_24h }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button onclick="showAnalysisModal('{{ analysis.ai_analysis|tojson|safe }}')"
+                                                    class="text-indigo-600 hover:text-indigo-900">
+                                                View Details
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-chart-line text-gray-400 text-5xl mb-4"></i>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No analyses yet</h3>
+                <p class="mt-1 text-sm text-gray-500">Get started by analyzing your first token.</p>
+                <div class="mt-6">
+                    <a href="{{ url_for('dashboard') }}" 
+                       class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-plus mr-2"></i>
+                        New Analysis
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Analysis Modal -->
+<div id="analysisModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 hidden flex items-center justify-center">
+    <div class="bg-white rounded-lg max-w-2xl w-full mx-4 overflow-hidden">
+        <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Analysis Details
+            </h3>
+            <button onclick="hideAnalysisModal()" class="text-gray-400 hover:text-gray-500">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="px-4 py-5 sm:p-6 max-h-[70vh] overflow-y-auto">
+            <div id="modalContent" class="prose max-w-none">
+                <!-- Analysis content will be inserted here -->
+            </div>
+        </div>
+        <div class="px-4 py-4 sm:px-6 bg-gray-50 flex justify-end">
+            <button onclick="hideAnalysisModal()"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showAnalysisModal(analysis) {
+    const modal = document.getElementById('analysisModal');
+    const content = document.getElementById('modalContent');
+    
+    // Format the analysis text with proper HTML
+    const formattedAnalysis = analysis
+        .split('\n')
+        .map(line => `<p>${line}</p>`)
+        .join('');
+    
+    content.innerHTML = formattedAnalysis;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function hideAnalysisModal() {
+    const modal = document.getElementById('analysisModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+// Export to CSV functionality
+document.getElementById('exportCSV').addEventListener('click', function() {
+    const analysisData = JSON.parse('{{ history.analyses|tojson|safe }}');
+    let csv = 'Timestamp,Token Name,Symbol,Price,Volume 24h,Model Used\n';
+    
+    if (analysisData && Array.isArray(analysisData)) {
+        analysisData.forEach(function(analysis) {
+            csv += `${analysis.timestamp},${analysis.token_data.name},${analysis.token_data.symbol},${analysis.token_data.price},${analysis.token_data.volume_24h},${analysis.model_used}\n`;
+        });
+    }
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'analysis_history.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
+
+// Close modal when clicking outside
+document.getElementById('analysisModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideAnalysisModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !document.getElementById('analysisModal').classList.contains('hidden')) {
+        hideAnalysisModal();
+    }
+});
+</script>
+{% endblock %}
